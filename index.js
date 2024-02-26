@@ -42,7 +42,7 @@ app.set('views', path.join(__dirname, 'views'));
 
 //Database
 const connectDB = require('./server/config/db.js');
-connectDB();
+// connectDB();
 
 //GET Routes
 const customer = require('./server/routes/customer.js');
@@ -66,6 +66,11 @@ app.get('*', (req, res) => {
 });
 
 const port = 5000 || process.env.PORT;
-app.listen(port, () => {
-    console.log(`Server is listening on port: ${port}`);
+
+//New Code in order to deploy on cyclic
+
+connectDB().then(() => {
+    app.listen(port, () => {
+        console.log(`Server is listening on port: ${port}`);
+    });
 });
